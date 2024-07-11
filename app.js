@@ -61,7 +61,7 @@ app.post("/user", (req, res) => {
   //adicionamos ao array
   users.push(newUser);
   //retornamos o novo usuário
-  res.json(newUser);
+  res.status(201).json(newUser);
 });
 
 app.put("/user/:id", (req, res) => {
@@ -92,6 +92,24 @@ app.delete("/user/:id", (req, res) => {
   users.splice(userIndex, 1);
   //retornamos uma mensagem de sucesso
   res.json({ message: "usuario removido com sucesso" });
+});
+
+app.post("/user/login", (req, res) => {
+  const { email, password } = req.body;
+  //encontramos o usuário
+  const user = users.find(
+    (user) => user.email === email
+  );
+  //se não existir, retornamos um status 404
+  if (!user) {
+    return res.status(404).json({ message: "usuario não existe" });
+  }
+
+  if(user.password !== password){
+    return res.status(401).json({ message: "senha incorreta" });
+  }
+
+  res.send("autenticado");
 });
 
 app.listen(PORT, () => [console.log(`Server is running on port ${PORT}`)]);
