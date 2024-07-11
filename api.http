@@ -1,0 +1,40 @@
+@domain = http://localhost:3000
+@userId = {{createdUser.response.body.$.id}}
+
+### aqui farao os testes de API, se tiverem duvidas basta perguntar
+### podem utilizar o modelo abaixo e adaptar para os blogs
+
+
+
+
+
+
+### rota usuarios
+GET {{domain}}/users
+
+### rota usuario unico
+GET {{domain}}/user/{{userId}}
+
+### rota criar usuario
+# @name createdUser
+POST {{domain}}/user
+Content-Type: application/json
+
+{
+    "name": "JOTAVE",
+    "email": "teste@gmail.com",
+    "password": "123456"
+}
+
+### rota atualizar usuario
+PUT {{domain}}/user/{{userId}}
+Content-Type: application/json
+
+{
+    "name": "VITORIGOR",
+    "email": "vitorigor@gmail.com",
+    "password": "123456"
+}
+
+### rota deletar usuario
+DELETE {{domain}}/user/{{userId}}
