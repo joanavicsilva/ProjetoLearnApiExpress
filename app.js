@@ -27,6 +27,23 @@ app.get("/", (req, res) => {
 //coloquem suas rotas aqui
 //lembrem de utilizar o array criado
 
+//ROTA VITOR IGOR
+
+//ROTA LUANNA
+app.delete("/blog/:id", (req, res) => {
+  const { id } = req.params;
+  //encontrou o blog
+  const blogIndex = blogs.findIndex((blog) => blog.id === id);
+  //caso não exista, retornamos um status 404
+  if (blogIndex === -1) {
+    return res.status(404).json({ message: "blog não existe" });
+  }
+  //blog removido
+  blogs.splice(blogIndex, 1);
+  //mensagem de sucesso
+  res.json({ message: "blog removido com sucesso" });
+});
+
 //========================================================================================
 // UTILIZEM ESSA PARTE COMO OREINTAÇÃO
 //========================================================================================
