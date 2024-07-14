@@ -33,19 +33,47 @@ app.get("/blogs", (req, res) => {
 });
 
 //ROTA VITOR IGOR
+app.get("/blog/:id", (req, res) => {
+  const { id } = req.params;
+  const blog = blogs.find((blog) => blog.id === id);
+  if (!blog) {
+    return res.status(404).json({ message: "blog não existe" });
+  }
+  res.json(blog);
+});
+
+//ROTA VITÓRIA
 app.post("/blog", (req, res) => {
   const { title, description, content } = req.body;
 
   const newBlog = {
-      id: uuidv4(),
-      title,
-      description,
-      content,
+    id: uuidv4(),
+    title,
+    description,
+    content,
   };
 
   blogs.push(newBlog);
 
   res.status(201).json(newBlog);
+});
+
+//ROTA RAPHAEL
+app.put("/blog/:id", (req, res) => {
+  const { id } = req.params;
+  const { title, description, content } = req.body;
+
+  const blog = blogs.find((blog) => blog.id === id);
+
+  if (!blog) {
+    return res.status(404).json({ message: "blog não existe" });
+  }
+
+  blog.title = title;
+  blog.description = description;
+  blog.content = content;
+
+  res.json(blog);
 });
 
 //ROTA LUANNA
@@ -133,19 +161,21 @@ app.delete("/user/:id", (req, res) => {
 app.post("/user/login", (req, res) => {
   const { email, password } = req.body;
   //encontramos o usuário
-  const user = users.find(
-    (user) => user.email === email
-  );
+  const user = users.find((user) => user.email === email);
   //se não existir, retornamos um status 404
   if (!user) {
     return res.status(404).json({ message: "usuario não existe" });
   }
 
-  if(user.password !== password){
+  if (user.password !== password) {
     return res.status(401).json({ message: "senha incorreta" });
   }
 
   res.json(user);
+});
+
+app.all('*', (req, res) => {
+  res.status(404).send({"error": "this route does not exist"});
 });
 
 app.listen(PORT, () => [console.log(`Server is running on port ${PORT}`)]);

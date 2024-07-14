@@ -10,7 +10,17 @@
 GET {{domain}}/blogs
 
 ###
-GET {{domain}}/blogs/{{blogsId}}
+GET {{domain}}/blog/{{blogsId}}
+
+### atualizar blog
+PUT {{domain}}/blog/{{blogsId}}
+Content-Type: application/json
+
+{
+    "title": "blog 5",
+    "description": "teewqewqeqweqweeeeee",
+    "content": "blaewqeqwwqhblahblah"
+}
 
 ###
 # @name createdBlog
