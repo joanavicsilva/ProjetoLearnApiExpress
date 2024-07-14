@@ -4,10 +4,24 @@
 ### aqui farao os testes de API, se tiverem duvidas basta perguntar
 ### podem utilizar o modelo abaixo e adaptar para os blogs
 
+@blogsId = {{createdBlog.response.body.$.id}}
 
+###
+GET {{domain}}/blogs
 
+###
+GET {{domain}}/blogs/{{blogsId}}
 
+###
+# @name createdBlog
+POST {{domain}}/blog
+Content-Type: application/json
 
+{
+    "title": "blog 5",
+    "description": "testeeeeeeee",
+    "content": "blahblahblah"
+}
 
 ### rota usuarios
 GET {{domain}}/users

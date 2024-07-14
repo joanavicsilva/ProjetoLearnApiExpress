@@ -28,6 +28,25 @@ app.get("/", (req, res) => {
 //lembrem de utilizar o array criado
 
 //ROTA VITOR IGOR
+app.get("/blogs", (req, res) => {
+  res.json(blogs);
+});
+
+//ROTA VITOR IGOR
+app.post("/blog", (req, res) => {
+  const { title, description, content } = req.body;
+
+  const newBlog = {
+      id: uuidv4(),
+      title,
+      description,
+      content,
+  };
+
+  blogs.push(newBlog);
+
+  res.status(201).json(newBlog);
+});
 
 //ROTA LUANNA
 app.delete("/blog/:id", (req, res) => {
