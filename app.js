@@ -1,14 +1,6 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import { v4 as uuidv4 } from "uuid";
-
-//nosso array de blogs
-//voces podem chama apenas blogs e utilizá-lo como blogs.push() ou blogs.map()
-import { blogs } from "./data/blogs.js";
-
-//vou utilizar um exemplo com users para voces entenderem
-import { users } from "./data/users.js";
 
 const app = express();
 const PORT = 3000;
@@ -26,153 +18,11 @@ app.get("/", (req, res) => {
 
 //coloquem suas rotas aqui
 //lembrem de utilizar o array criado
+import blogRoute from './src/modules/Blog/blog.route.js'
+import userRoute from './src/modules/User/user.route.js'
 
-//ROTA VITOR IGOR
-app.get("/blogs", (req, res) => {
-  res.json(blogs);
-});
-
-//ROTA VITOR IGOR
-app.get("/blog/:id", (req, res) => {
-  const { id } = req.params;
-  const blog = blogs.find((blog) => blog.id === id);
-  if (!blog) {
-    return res.status(404).json({ message: "blog não existe" });
-  }
-  res.json(blog);
-});
-
-//ROTA VITÓRIA
-app.post("/blog", (req, res) => {
-  const { title, description, content } = req.body;
-
-  const newBlog = {
-    id: uuidv4(),
-    title,
-    description,
-    content,
-  };
-
-  blogs.push(newBlog);
-
-  res.status(201).json(newBlog);
-});
-
-//ROTA RAPHAEL
-app.put("/blog/:id", (req, res) => {
-  const { id } = req.params;
-  const { title, description, content } = req.body;
-
-  const blog = blogs.find((blog) => blog.id === id);
-
-  if (!blog) {
-    return res.status(404).json({ message: "blog não existe" });
-  }
-
-  blog.title = title;
-  blog.description = description;
-  blog.content = content;
-
-  res.json(blog);
-});
-
-//ROTA LUANNA
-app.delete("/blog/:id", (req, res) => {
-  const { id } = req.params;
-  //encontrou o blog
-  const blogIndex = blogs.findIndex((blog) => blog.id === id);
-  //caso não exista, retornamos um status 404
-  if (blogIndex === -1) {
-    return res.status(404).json({ message: "blog não existe" });
-  }
-  //blog removido
-  blogs.splice(blogIndex, 1);
-  //mensagem de sucesso
-  res.json({ message: "blog removido com sucesso" });
-});
-
-//========================================================================================
-// UTILIZEM ESSA PARTE COMO OREINTAÇÃO
-//========================================================================================
-//rotas de usuario que criei para orientação
-app.get("/users", (req, res) => {
-  //para exibi-los basta utilizar o .json
-  //res normalmente retornam com status 200, não é preciso especificar
-  res.json(users);
-});
-
-app.get("/user/:id", (req, res) => {
-  const { id } = req.params;
-  //find é uma função que retorna o primeiro elemento que encontrar
-  //se não encontrar, retorna undefined
-  const user = users.find((user) => user.id === id);
-  //se o usuário não existir, retornamos um status 404
-  if (!user) {
-    return res.status(404).json({ message: "usuario não existe" });
-  }
-  res.json(user);
-});
-
-app.post("/user", (req, res) => {
-  const { name, email, password } = req.body;
-  //criamos um novo usuário
-  const newUser = {
-    id: uuidv4(),
-    name,
-    email,
-    password,
-  };
-  //adicionamos ao array
-  users.push(newUser);
-  //retornamos o novo usuário
-  res.status(201).json(newUser);
-});
-
-app.put("/user/:id", (req, res) => {
-  const { id } = req.params;
-  const { name, email } = req.body;
-  //encontramos o usuário
-  const user = users.find((user) => user.id === id);
-  //se não existir, retornamos um status 404
-  if (!user) {
-    return res.status(404).json({ message: "usuario não existe" });
-  }
-  //atualizamos os dados
-  user.name = name;
-  user.email = email;
-  //retornamos o usuário atualizado
-  res.json(user);
-});
-
-app.delete("/user/:id", (req, res) => {
-  const { id } = req.params;
-  //encontramos o usuário
-  const userIndex = users.findIndex((user) => user.id === id);
-  //se não existir, retornamos um status 404
-  if (userIndex === -1) {
-    return res.status(404).json({ message: "usuario não existe" });
-  }
-  //removemos o usuário
-  users.splice(userIndex, 1);
-  //retornamos uma mensagem de sucesso
-  res.json({ message: "usuario removido com sucesso" });
-});
-
-app.post("/user/login", (req, res) => {
-  const { email, password } = req.body;
-  //encontramos o usuário
-  const user = users.find((user) => user.email === email);
-  //se não existir, retornamos um status 404
-  if (!user) {
-    return res.status(404).json({ message: "usuario não existe" });
-  }
-
-  if (user.password !== password) {
-    return res.status(401).json({ message: "senha incorreta" });
-  }
-
-  res.json(user);
-});
+app.use('/user', userRoute)
+app.use('/blog', blogRoute)
 
 app.all('*', (req, res) => {
   res.status(404).send({"error": "this route does not exist"});

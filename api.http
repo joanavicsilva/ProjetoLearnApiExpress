@@ -45,8 +45,8 @@ POST {{domain}}/user
 Content-Type: application/json
 
 {
-    "name": "JOTAVE",
-    "email": "teste@gmail.com",
+    "name": "Vitor",
+    "email": "vitor@gmail.com",
     "password": "123456"
 }
 
