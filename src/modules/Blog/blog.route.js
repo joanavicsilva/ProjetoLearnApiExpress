@@ -1,13 +1,59 @@
 import express from "express";
+import { PrismaClient } from "@prisma/client";
 
-const router = express.Router()
+const router = express.Router();
+const prisma = new PrismaClient();
 
-router.get('/all')
+router.get("/all", async (req, res) => {
+  try {
+    const blogs = await prisma.blog.findMany({
+      include: {
+        category: true,
+      },
+    });
 
-router.get('/:id')
+    res.json(blogs);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
-router.post('')
+router.get("/search/", async (req, res) => {
+  try {
+    const { search } = req.query;
 
-router.delete('')
+    const blogs = await prisma.blog.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: search,
+            },
+          },
+          {
+            content: {
+              contains: search,
+            },
+          },
+          {
+            subTitle: {
+              contains: search,
+            },
+          },
+        ],
+      },
+    });
 
-export default router
+    res.json(blogs);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+router.get("/:id");
+
+router.post("");
+
+router.delete("/:id");
+
+export default router;

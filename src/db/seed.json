@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "name": "joao victor",
+      "email": "joaovictorgouveiar@gmail.com",
+      "password": "password123"
+    },
+    {
+      "name": "raphael",
+      "email": "raphael@gmail.com",
+      "password": "password123"
+    },
+    {
+      "name": "alice",
+      "email": "alice@gmail.com",
+      "password": "password123"
+    },
+    {
+      "name": "bob",
+      "email": "bob@gmail.com",
+      "password": "password123"
+    },
+    {
+      "name": "charlie",
+      "email": "charlie@gmail.com",
+      "password": "password123"
+    },
+    {
+      "name": "david",
+      "email": "david@gmail.com",
+      "password": "password123"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Technology"
+    },
+    {
+      "name": "Health"
+    },
+    {
+      "name": "Lifestyle"
+    }
+  ],
+  "blogs": [
+    {
+      "author_id": 1,
+      "category_name": "Technology",
+      "title": "First Blog Post",
+      "subTitle": "Introduction to Technology",
+      "content": "This is the content of the first blog post."
+    },
+    {
+      "author_id": 2,
+      "category_name": "Health",
+      "title": "Health Tips",
+      "subTitle": "How to stay healthy",
+      "content": "This is the content of the health tips blog post."
+    },
+    {
+      "author_id": 3,
+      "category_name": "Lifestyle",
+      "title": "Lifestyle Choices",
+      "subTitle": "Making the right choices",
+      "content": "This is the content of the lifestyle choices blog post."
+    }
+  ]
+}

@@ -1,13 +1,13 @@
 @domain = http://localhost:3000
 @userId = {{createdUser.response.body.$.id}}
 
-### aqui farao os testes de API, se tiverem duvidas basta perguntar
-### podem utilizar o modelo abaixo e adaptar para os blogs
-
 @blogsId = {{createdBlog.response.body.$.id}}
 
 ###
-GET {{domain}}/blogs
+GET {{domain}}/blog/all
+
+###
+GET {{domain}}/blog/search/?search=life
 
 ###
 GET {{domain}}/blog/{{blogsId}}
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 ###
 # @name createdBlog
-POST {{domain}}/blog
+POST {{domain}}/blog/
 Content-Type: application/json
 
 {
@@ -34,7 +34,7 @@ Content-Type: application/json
 }
 
 ### rota usuarios
-GET {{domain}}/users
+GET {{domain}}/user/all
 
 ### rota usuario unico
 GET {{domain}}/user/{{userId}}
