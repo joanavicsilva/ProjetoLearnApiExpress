@@ -5,6 +5,10 @@
 O projeto foi organizado em módulos dividindo cada funcionalidade específica.
 O banco de dados utilizado é SQLite, com consultas realizadas pelo prisma-client.
 
+### Sobre a produção do time
+
+Dentro do código há comentários destacando os blocos produzidos por cada um.
+
 ## iniciar o projeto
 
 ### setup banco de dados
