@@ -35,9 +35,6 @@ router.post('', async (req,res) => {
     }
 })
 
-//rota para buscar um usuário pelo id
-
-
 //rota para atualizar um usuário pelo id
 router.put('/:id', async (req, res) => {
     try{
@@ -62,7 +59,58 @@ router.put('/:id', async (req, res) => {
     }
 })
 
+//rota para apagar um usuário
+router.delete('', async (req,res) => {
+    try{
+        const data = req.body
+        const {id} = req.params
 
-//rota para deletar um usuário pelo id
+        const user = await prisma.user.delete({
+            where: {
+                id: parseInt(id)
+            }
+        })
+
+        res.json(user)
+    }catch(err){
+        res.status(500).send(err)
+    }
+})
+
+//rota para buscar um usuário pelo id
+router.get('/:id', async (req,res) => {
+    try{
+        const data = req.body
+        const {id} = req.params
+
+        const user = await prisma.user.find({
+            where: {
+                id: parseInt(id)
+            }
+        })
+
+        res.json(user)
+    }catch(err){
+        res.status(500).send(err)
+    }
+})
+
+//rota para buscar um usuário pelo nome
+router.get('/:name', async (req,res) => {
+    try{
+        const data = req.body
+        const {name} = req.params
+
+        const user = await prisma.name.findMany({
+            where: {
+                name: {contains: name}
+            }
+        })
+
+        res.json(user)
+    }catch(err){
+        res.status(500).send(err)
+    }
+})
 
 export default router

@@ -39,3 +39,14 @@ model Category {
   Blog Blog []
   @@id([name])
 }
+
+model Like {
+  user_id Int
+  blog_id Int
+  createdAt DateTime @default(now())
+
+  user User @relation(fields:[user_id], references: [id])
+  blog Blog @relation(fields: [blog_id], references: [id])
+
+  @@id([user_id,blog_id])
+}
